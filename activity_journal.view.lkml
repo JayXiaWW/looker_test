@@ -227,6 +227,11 @@ view: activity_journal {
     group_label: "User"
   }
 
+  dimension: weeks_since_pilot_start {
+    type: number
+    sql: DATEDIFF(week,'01-01-2017',${wwdate_date}) ;;
+  }
+
   dimension_group: wwdate {
     label: "Activity"
     description: "This is the activity time"
