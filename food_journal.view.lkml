@@ -2,6 +2,7 @@ view: food_journal {
   sql_table_name: analytics.food_journal ;;
 
   dimension_group: createdtimestamp {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -18,90 +19,109 @@ view: food_journal {
   dimension: eventid {
     type: string
     sql: ${TABLE}.eventid ;;
+    hidden: yes
   }
 
   dimension: eventtype {
     type: string
     sql: ${TABLE}.eventtype ;;
+    hidden: yes
+
   }
 
   dimension: foodjournalkey {
     type: number
     sql: ${TABLE}.foodjournalkey ;;
     primary_key: yes
+    hidden: yes
   }
 
   dimension: iscore {
     type: yesno
     sql: ${TABLE}.iscore ;;
+    hidden: yes
   }
 
   dimension: itemid {
     type: string
     sql: ${TABLE}.itemid ;;
+    group_label: "Item"
   }
 
   dimension: itemtype {
     type: string
     sql: ${TABLE}.itemtype ;;
+    group_label: "Item"
   }
 
   dimension: journalid {
     type: string
     sql: ${TABLE}.journalid ;;
+    hidden: yes
   }
 
   dimension: journaltype {
     type: string
     sql: ${TABLE}.journaltype ;;
+    hidden: yes
   }
 
   dimension: points {
     type: number
     sql: ${TABLE}.points ;;
+    group_label: "Points"
   }
 
   dimension: pointsperserving {
     type: number
     sql: ${TABLE}.pointsperserving ;;
+    group_label: "Points"
   }
 
   dimension: portionid {
     type: string
     sql: ${TABLE}.portionid ;;
+    group_label: "Portions"
   }
 
   dimension: portionmeasurement {
     type: string
     sql: ${TABLE}.portionmeasurement ;;
+    group_label: "Portions"
   }
 
   dimension: portionsize {
     type: number
     sql: ${TABLE}.portionsize ;;
+    group_label: "Portions"
   }
 
   dimension: smartpoints {
     type: number
     sql: ${TABLE}.smartpoints ;;
+    group_label: "Points"
   }
 
   dimension: smartpointsperserving {
     type: number
     sql: ${TABLE}.smartpointsperserving ;;
+    group_label: "Points"
   }
 
   dimension: subordering {
     type: number
     sql: ${TABLE}.subordering ;;
+    hidden: yes
   }
 
   dimension: timeclassifier {
+    label: "Time of Day"
     type: string
     sql: ${TABLE}.timeclassifier ;;
   }
 
   dimension_group: updatedtimestamp {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -118,6 +138,7 @@ view: food_journal {
   dimension: userid {
     type: string
     sql: ${TABLE}.userid ;;
+    hidden: yes
   }
 
   dimension: weeks_since_pilot_start {
@@ -143,15 +164,50 @@ view: food_journal {
     type: count_distinct
     sql: ${userid} ;;
     drill_fields: [userid,total_points]
+    group_label: "Counts"
   }
 
   measure: total_points {
     type: sum
     sql: ${points} ;;
+    group_label: "Points"
   }
+
+  measure: average_points {
+    type: average
+    sql: ${points} ;;
+    group_label: "Points"
+  }
+
+  measure: total_smartpoints {
+    type: sum
+    sql: ${smartpoints} ;;
+    group_label: "Points"
+  }
+
+  measure: average_smartpoints {
+    type: average
+    sql: ${smartpoints} ;;
+    group_label: "Points"
+  }
+
+  measure: total_portions {
+    type: sum
+    sql: ${portionsize} ;;
+    group_label: "Portions"
+  }
+
+  measure: avg_portions {
+    type: average
+    sql: ${portionsize} ;;
+    group_label: "Portions"
+  }
+
   measure: count {
+    label: "Food Entries"
     type: count
     drill_fields: []
+    group_label: "Counts"
   }
 
 

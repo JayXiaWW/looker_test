@@ -34,41 +34,50 @@ view: weight_journal {
   dimension: eventid {
     type: string
     sql: ${TABLE}.eventid ;;
+    hidden: yes
   }
 
   dimension: eventtype {
     type: string
     sql: ${TABLE}.eventtype ;;
+    hidden: yes
   }
 
   dimension: itemtype {
     type: string
     sql: ${TABLE}.itemtype ;;
+    label: "Type"
+    group_label: "Weight Characteristics"
   }
 
   dimension: journalid {
     type: string
     sql: ${TABLE}.journalid ;;
+    hidden: yes
   }
 
   dimension: journaltype {
     type: string
     sql: ${TABLE}.journaltype ;;
+    hidden: yes
   }
 
   dimension: notes {
     type: string
     sql: ${TABLE}.notes ;;
+    group_label: "Weight Characteristics"
   }
 
   dimension: subordering {
     type: number
     sql: ${TABLE}.subordering ;;
+    group_label: "Weight Characteristics"
   }
 
   dimension: units {
     type: string
     sql: ${TABLE}.units ;;
+    group_label: "Weight"
   }
 
   dimension_group: updatedtimestamp {
@@ -89,22 +98,26 @@ view: weight_journal {
   dimension: useraltid {
     type: string
     sql: ${TABLE}.useraltid ;;
+    group_label: "User"
   }
 
   dimension: userid {
     type: string
     sql: ${TABLE}.userid ;;
+    group_label: "User"
   }
 
   dimension: weight {
     type: number
     sql: ${TABLE}.weight ;;
+    group_label: "Weight"
   }
 
   dimension: weightjournalkey {
     type: number
     sql: ${TABLE}.weightjournalkey ;;
     primary_key: yes
+    hidden: yes
   }
 
   dimension: weeks_since_pilot_start {
@@ -130,5 +143,31 @@ view: weight_journal {
   measure: count {
     type: count
     drill_fields: []
+    label: "Weigh-In Count"
+    group_label: "Counts"
+  }
+
+  measure: user_count {
+    type: count_distinct
+    sql: ${userid} ;;
+    group_label: "Counts"
+  }
+
+  measure: average_weight {
+    type: average
+    sql: ${weight} ;;
+    group_label: "Weight"
+  }
+
+  measure: max_weight {
+    type: max
+    sql: ${weight} ;;
+    group_label: "Weight"
+  }
+
+  measure: min_weight {
+    type: min
+    sql: ${weight} ;;
+    group_label: "Weight"
   }
 }
