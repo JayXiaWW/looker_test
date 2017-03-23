@@ -34,6 +34,7 @@ view: whisper_user_role_events_snap_20170321 {
   dimension: userid {
     type: string
     sql: ${TABLE}.userid ;;
+    primary_key: yes
   }
 
   dimension: whisperrange {
@@ -46,8 +47,8 @@ view: whisper_user_role_events_snap_20170321 {
     sql: ${TABLE}.whispertimestamp ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [rolename]
+  measure: user_count {
+    type: count_distinct
+    sql: ${userid} ;;
   }
 }

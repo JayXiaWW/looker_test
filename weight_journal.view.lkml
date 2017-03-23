@@ -153,6 +153,12 @@ view: weight_journal {
     group_label: "Counts"
   }
 
+  measure: percent_of_cohort {
+    type: number
+    sql: 1.0 * ${user_count}/NULLIF(${group_sizes.cohort_size},0) ;;
+    value_format_name: percent_2
+  }
+
   measure: average_weight {
     type: average
     sql: ${weight} ;;

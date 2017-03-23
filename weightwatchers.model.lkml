@@ -12,6 +12,11 @@ explore: activity_journal {
     type: inner
     relationship: many_to_one
   }
+  join: group_sizes {
+    sql_on: ${whisper_user_role_events_snap_20170321.rolename} = ${group_sizes.rolename} ;;
+    type: left_outer
+    relationship: one_to_one
+  }
   always_filter: {
     filters: {
       field: whisper_user_role_events_snap_20170321.rolename
@@ -29,6 +34,11 @@ explore: food_journal {
     type: inner
     relationship: many_to_one
   }
+  join: group_sizes {
+    sql_on: ${whisper_user_role_events_snap_20170321.rolename} = ${group_sizes.rolename} ;;
+    type: left_outer
+    relationship: one_to_one
+  }
   always_filter: {
     filters: {
       field: whisper_user_role_events_snap_20170321.rolename
@@ -45,6 +55,11 @@ explore: weight_journal {
     sql_on: ${weight_journal.userid} = ${whisper_user_role_events_snap_20170321.userid} ;;
     type: inner
     relationship: many_to_one
+  }
+  join: group_sizes {
+    sql_on: ${whisper_user_role_events_snap_20170321.rolename} = ${group_sizes.rolename} ;;
+    type: left_outer
+    relationship: one_to_one
   }
   always_filter: {
     filters: {
@@ -68,9 +83,16 @@ explore: weight_journal {
 #   }
 #   join: activity_journal {
 #     sql_on: ${whisper_user_role_events_snap_20170321.userid} = ${activity_journal.userid}   ;;
-#     type: inner
+#     type: left_outer
 #     relationship: one_to_many
 #   }
+
+#   join: group_sizes {
+#     sql_on: ${whisper_user_role_events_snap_20170321.rolename} = ${group_sizes.rolename} ;;
+#     type: inner
+#     relationship: one_to_one
+#   }
+# }
 #   join: food_journal {
 #     sql_on: ${whisper_user_role_events_snap_20170321.userid} = ${food_journal.userid}   ;;
 #     type: inner
