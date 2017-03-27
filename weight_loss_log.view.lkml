@@ -32,40 +32,74 @@ view: weight_loss_log {
     type: string
     sql: CONCAT(${userid},${weeks_since_pilot_start}) ;;
     primary_key: yes
+    hidden: yes
   }
   dimension: prev_week {
     type: number
     sql: ${TABLE}.prev_week ;;
+    hidden: yes
   }
   dimension: weekly_average_weight {
     type: number
     sql: ${TABLE}.average_weight ;;
+    group_label: "Weight Loss"
   }
 
   dimension: previous_week_average_weight {
     type: number
     sql: ${TABLE}.prev_weight ;;
+    group_label: "Weight Loss"
+  }
+
+  dimension: weight_tier {
+    type: tier
+    sql: ${weekly_average_weight} ;;
+    tiers: [150,200,250,300]
+    style: interval
+    group_label: "Weight Loss"
   }
 
   dimension: weeks_between_weighings {
     type: number
     sql: ${weeks_since_pilot_start} - ${prev_week} ;;
+    group_label: "Weight Loss"
   }
 
   dimension:  weekly_weight_loss {
     type: number
     sql: -1.0 * (${weekly_average_weight} - ${previous_week_average_weight}) ;;
+    group_label: "Weight Loss"
+  }
+
+  dimension: abs_val_weight_loss {
+    type: number
+    sql: ABS(${weekly_weight_loss}) ;;
+    hidden: yes
+
+  }
+  dimension: weekly_weight_loss_tier {
+    type: tier
+    sql: ${weekly_weight_loss} ;;
+    tiers: [-20,-5,-3,-2,-1,0,1,2,3,5,20]
+    style: interval
+    group_label: "Weight Loss"
   }
 
   measure: average_weekly_weight_loss {
     type: average
     sql: ${weekly_weight_loss} ;;
     value_format_name: decimal_2
+    filters: {
+      field: abs_val_weight_loss
+      value: "<20"
+    }
+    drill_fields: [userid,weekly_average_weight,previous_week_average_weight,weekly_weight_loss]
   }
 
   measure: user_count {
     type: count_distinct
-    sql: $${userid} ;;
+    sql: ${userid} ;;
+    drill_fields: [userid,weekly_average_weight,previous_week_average_weight,weekly_weight_loss]
   }
 }
 

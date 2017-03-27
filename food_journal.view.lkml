@@ -110,6 +110,14 @@ view: food_journal {
     group_label: "Points"
   }
 
+  dimension: smartpoints_tier {
+    type: tier
+    sql: ${smartpoints} ;;
+    tiers: [2,4,6,8,10,12]
+    style: integer
+    group_label: "Points"
+  }
+
   dimension: smartpointsperserving {
     type: number
     sql: ${TABLE}.smartpointsperserving ;;
@@ -152,6 +160,7 @@ view: food_journal {
   dimension: weeks_since_pilot_start {
     type: number
     sql: DATEDIFF(week,'01-01-2017',${wwdate_date}) ;;
+    drill_fields: [wwdate_date]
   }
   dimension_group: wwdate {
     label: "Food Entry"
@@ -161,6 +170,7 @@ view: food_journal {
       date,
       week,
       month,
+      day_of_week,
       quarter,
       year
     ]

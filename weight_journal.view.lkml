@@ -113,6 +113,17 @@ view: weight_journal {
     group_label: "Weight"
   }
 
+  dimension: weight_lbs {
+    label: "Weight in Lbs"
+    type: number
+    sql: CASE WHEN ${units} = 'Kgs' THEN 2.2 * ${weight}
+    WHEN ${units} = 'Stones' THEN 14 * ${weight}
+    ELSE ${weight}
+    END;;
+    group_label: "Weight"
+
+  }
+
   dimension: weightjournalkey {
     type: number
     sql: ${TABLE}.weightjournalkey ;;
@@ -123,6 +134,7 @@ view: weight_journal {
   dimension: weeks_since_pilot_start {
     type: number
     sql: DATEDIFF(week,'01-01-2017',${wwdate_date}) ;;
+    drill_fields: [wwdate_date]
   }
 
   dimension_group: wwdate {
@@ -132,6 +144,7 @@ view: weight_journal {
       raw,
       date,
       week,
+      day_of_week,
       month,
       quarter,
       year

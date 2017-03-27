@@ -181,6 +181,20 @@ view: activity_journal {
     type: yesno
     sql: ${source} = 'Manual' ;;
     group_label: "Activity Type"
+    drill_fields: [platform,itemtype]
+  }
+
+  dimension: platform {
+    type: string
+    sql: CASE WHEN ${source} LIKE '%Fitbit%' THEN 'Fitbit'
+    WHEN ${source} LIKE '%MapMyRun%' THEN 'MapMyRun'
+    WHEN ${source} LIKE '%Jawbone%' THEN 'Jawbone'
+    WHEN ${source} LIKE '%Garmin%' THEN 'Garmin'
+    WHEN ${source} LIKE '%Apple%' THEN 'Apple Health'
+    WHEN ${source} LIKE '%Manual%' THEN 'Manual'
+    ELSE 'Other'
+    END;;
+    drill_fields: [activity_journal.source,activity_journal.itemtype]
   }
 
   dimension: steps {
@@ -225,6 +239,7 @@ view: activity_journal {
   dimension: weeks_since_pilot_start {
     type: number
     sql: DATEDIFF(week,'01-01-2017',${wwdate_date}) ;;
+    drill_fields: [wwdate_date]
   }
 
   dimension_group: wwdate {
@@ -234,6 +249,7 @@ view: activity_journal {
     timeframes: [
       raw,
       date,
+      day_of_week,
       week,
       month,
       quarter,
@@ -245,7 +261,7 @@ view: activity_journal {
 
   measure: activity_count {
     type: count
-    drill_fields: [itemname]
+    drill_fields: [platform,activity_count]
     group_label: "Counts"
   }
 
