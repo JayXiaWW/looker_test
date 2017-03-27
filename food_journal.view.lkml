@@ -72,6 +72,14 @@ view: food_journal {
     group_label: "Points"
   }
 
+  dimension: points_tier {
+    type: tier
+    sql: ${points} ;;
+    tiers: [2,4,6,8,10,12]
+    style: integer
+    group_label: "Points"
+  }
+
   dimension: pointsperserving {
     type: number
     sql: ${TABLE}.pointsperserving ;;
@@ -180,10 +188,27 @@ view: food_journal {
   }
 
   measure: average_points {
-    type: average
-    sql: ${points} ;;
+    type: number
+    sql: 1.0 * ${total_points}/NULLIF(${count},0);;
     group_label: "Points"
+    value_format_name: decimal_2
   }
+
+  measure: points_per_user {
+    type: number
+    sql: 1.0 * ${total_points}/NULLIF(${user_count},0);;
+    group_label: "Points"
+    value_format_name: decimal_2
+  }
+
+  measure: entries_per_user {
+    type: number
+    sql: 1.0 * ${count}/NULLIF(${user_count},0);;
+    group_label: "Counts"
+    value_format_name: decimal_2
+  }
+
+
 
   measure: total_smartpoints {
     type: sum

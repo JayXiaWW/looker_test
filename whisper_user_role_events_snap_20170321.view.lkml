@@ -24,6 +24,11 @@ view: whisper_user_role_events_snap_20170321 {
   dimension: rolename {
     type: string
     sql: ${TABLE}.rolename ;;
+    link: {
+      label: "Group Breakdown Dashboard"
+      url:  "/dashboards/3?Group={{ value | encode_uri }}"
+      icon_url: "http://www.looker.com/favicon.ico"
+    }
   }
 
   dimension: source {

@@ -80,6 +80,24 @@ view: user_profile {
     sql: ${TABLE}.goalweightunits ;;
   }
 
+  dimension: goal_weight_lbs {
+    type: number
+    sql: CASE WHEN ${goalweightunits} = 'lbs' THEN 1.0 * ${goalweight}
+        WHEN ${goalweightunits} = 'kgs' THEN 2.2 * ${goalweight}
+        WHEN ${goalweightunits} = 'stones' THEN 14 * ${goalweight}
+        ELSE NULL
+        END;;
+    value_format_name: decimal_0
+  }
+
+  dimension: goal_weight_lbs_tier {
+    label: "Goal Weight Tier (In Pounds)"
+    type: tier
+    sql: ${goal_weight_lbs} ;;
+    tiers: [120,140,160,180,200,220,240,260,280,300]
+    style: integer
+  }
+
   dimension: hascompletedonboarding {
     type: yesno
     sql: ${TABLE}.hascompletedonboarding ;;

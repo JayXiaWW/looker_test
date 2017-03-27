@@ -17,6 +17,7 @@ explore: activity_journal {
     type: left_outer
     relationship: one_to_one
   }
+
   always_filter: {
     filters: {
       field: whisper_user_role_events_snap_20170321.rolename
@@ -61,6 +62,13 @@ explore: weight_journal {
     type: left_outer
     relationship: one_to_one
   }
+
+  join: weight_loss_log {
+    sql_on: ${whisper_user_role_events_snap_20170321.userid} = ${weight_loss_log.userid}
+      AND ${weight_journal.weeks_since_pilot_start} = ${weight_loss_log.weeks_since_pilot_start};;
+    type: inner
+    relationship: one_to_one
+  }
   always_filter: {
     filters: {
       field: whisper_user_role_events_snap_20170321.rolename
@@ -69,6 +77,20 @@ explore: weight_journal {
   }
 }
 
+explore: whisper_user_role_events_snap_20170321 {
+  label: "Whisper User Profiles"
+  join: user_profile {
+    type: inner
+    sql_on: ${whisper_user_role_events_snap_20170321.userid} = ${user_profile.userid} ;;
+    relationship: one_to_one
+  }
+  always_filter: {
+    filters: {
+      field: whisper_user_role_events_snap_20170321.rolename
+      value: "rewards-2017-jan-online-control,rewards-2017-jan-online-high,rewards-2017-jan-online-low,rewards-2017-jan-meetings-conrol,rewards-2017-jan-meetings-high,rewards-2017-jan-meetings-low"
+    }
+  }
+}
 
 
 

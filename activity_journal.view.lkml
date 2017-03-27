@@ -151,11 +151,6 @@ view: activity_journal {
     group_label: "Fitness Stats"
   }
 
-  measure: average_points {
-    type: average
-    sql: ${points} ;;
-    group_label: "Fitness Stats"
-  }
 
   dimension: smartpoints {
     type: number
@@ -252,6 +247,20 @@ view: activity_journal {
     type: count
     drill_fields: [itemname]
     group_label: "Counts"
+  }
+
+  measure: average_points {
+    type: number
+    sql: 1.0 * ${total_points}/NULLIF(${activity_count},0);;
+    group_label: "Fitness Stats"
+    value_format_name: decimal_2
+  }
+
+  measure: entries_per_user {
+    type: number
+    sql: 1.0 * ${activity_count}/NULLIF(${user_count},0);;
+    group_label: "Counts"
+    value_format_name: decimal_2
   }
 
   measure: percent_of_cohort {

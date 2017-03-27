@@ -176,4 +176,11 @@ view: weight_journal {
     sql: ${weight} ;;
     group_label: "Weight"
   }
+
+  measure: entries_per_user {
+    type: number
+    sql: 1.0 * ${count}/NULLIF(${user_count},0);;
+    group_label: "Counts"
+    value_format_name: decimal_2
+  }
 }
