@@ -5,7 +5,7 @@ dimension: userid  {
 
   type:  string
   sql: ${TABLE}.userid ;;
-  hidden: yes
+  hidden: no
 }
 
 dimension_group: wwdate {
@@ -45,6 +45,18 @@ dimension_group: wwdate {
           END;;
     group_label: "Weight"
   }
+
+measure: start_weight {
+  type : min
+  sql: ${wwdate_date} ;;
+  value_format_name: "date"
+}
+
+measure: end_weight {
+  type: max
+  sql: ${wwdate_date} ;;
+  value_format_name: "date"
+}
 
 measure: NoOfWeighIns {
   label: "Number Of Weigh-Ins"
