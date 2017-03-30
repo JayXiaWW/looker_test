@@ -9,11 +9,16 @@ dimension: userid  {
 }
 
 dimension_group: wwdate {
-  label: "Weigh-In Date"
+  label: "Weigh-In"
   type: time
+  datatype: date
   timeframes: [
+    date,
+    year,
+    quarter,
     month,
-    week
+    week,
+    day_of_week
   ]
 
   sql: ${TABLE}.wwdate ;;
