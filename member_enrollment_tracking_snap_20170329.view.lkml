@@ -1,4 +1,4 @@
-view: member_enrollment_tracking {
+view: member_enrollment_tracking_snap_20170329 {
   sql_table_name: analytics.member_enrollment_tracking_snap_20170329 ;;
 
   dimension: affiliate_id {
