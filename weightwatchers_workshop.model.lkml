@@ -15,3 +15,8 @@ include: "*.dashboard.lookml"  # include all dashboards in this project
 #     sql_on: ${users.id} = ${orders.user_id}
 #   }
 # }
+explore: food_journal_workshop {
+label: "Food Analytics"
+sql_always_where: ${wwdate_date} >= '01-01-2017' ;;
+
+}
