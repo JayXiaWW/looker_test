@@ -46,6 +46,7 @@ dimension_group: wwdate {
     group_label: "Weight"
   }
 
+
 measure: start_weight_date {
   type : date
   sql: min(${wwdate_date});;
