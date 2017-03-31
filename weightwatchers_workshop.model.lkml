@@ -7,8 +7,18 @@ explore: weight_journal_tp {
 
   label: "Weight Analytics"
 
+join :  member_enrollment_tracking_snap_20170329 {
+
+sql_on: ${weight_journal_tp.userid} = ${member_enrollment_tracking_snap_20170329.uuid} ;;
+}
+
   }
 
+explore: member_enrollment_tracking_snap_20170329 {
+
+  label: "Enrollment Analytics"
+
+}
 
 # # Select the views that should be a part of this model,
 # # and define the joins that connect them together.

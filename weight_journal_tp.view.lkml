@@ -46,16 +46,20 @@ dimension_group: wwdate {
     group_label: "Weight"
   }
 
-measure: start_weight {
-  type : min
-  sql: ${wwdate_date} ;;
-  value_format_name: "date"
+
+measure: start_weight_date {
+  type : date
+  sql: min(${wwdate_date});;
 }
 
-measure: end_weight {
-  type: max
-  sql: ${wwdate_date} ;;
-  value_format_name: "date"
+measure: end_weight_date {
+  type: date
+  sql: max(${wwdate_date}) ;;
+}
+
+measure: weight_lost {
+  type:  number
+  sql: ${weight_lbs} ;;
 }
 
 measure: NoOfWeighIns {
