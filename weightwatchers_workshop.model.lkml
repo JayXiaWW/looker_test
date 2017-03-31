@@ -33,3 +33,8 @@ join: market {
 #     sql_on: ${users.id} = ${orders.user_id}
 #   }
 # }
+explore: food_journal_workshop {
+label: "Food Analytics"
+sql_always_where: ${wwdate_date} >= '01-01-2017'and ${userid} = '375fad2e-3fe9-48a1-b22a-a1b5ce471f74'  ;;
+
+}
