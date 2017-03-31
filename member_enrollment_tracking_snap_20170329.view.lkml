@@ -1,7 +1,6 @@
 view: member_enrollment_tracking_snap_20170329 {
   sql_table_name: analytics.member_enrollment_tracking_snap_20170329 ;;
 
-
   dimension: uuid {
     type: string
     sql: ${TABLE}.uuid ;;
@@ -24,7 +23,7 @@ view: member_enrollment_tracking_snap_20170329 {
 
   dimension: program_type {
     type: string
-    sql: ${TABLE}.program_type ;;
+    sql: ${TABLE}.program_type;;
   }
 
   dimension: affiliate_id {
