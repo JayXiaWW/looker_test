@@ -195,14 +195,20 @@ view: member_enrollment_tracking_snap_20170329 {
   measure: tenure_in_days {
 
     type: number
-    sql: date(getdate()) - ${most_recent_enrollment_date}   ;;
+    sql: coalesce(DATE(member_enrollment_tracking_snap_20170329.cancel_date), date(getdate())) - ${most_recent_enrollment_date}   ;;
 
   }
   measure: tenure_in_months {
 
     type: number
-    sql: datediff(month,${most_recent_enrollment_date},date(getdate()))   ;;
+    sql: datediff(month,${most_recent_enrollment_date},coalesce(DATE(member_enrollment_tracking_snap_20170329.cancel_date), date(getdate())))   ;;
   }
+  measure: tenure_in_weeks {
+
+    type: number
+    sql: datediff(week,${most_recent_enrollment_date},coalesce(DATE(member_enrollment_tracking_snap_20170329.cancel_date), date(getdate())))   ;;
+  }
+
 
   measure: count {
     type: count_distinct
