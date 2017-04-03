@@ -4,9 +4,15 @@ view: weight_loss_log {
     sql: SELECT
          weight_journal.userid  AS "userid",
          DATEDIFF(week,'01-01-2017',(DATE(weight_journal.wwdate )))  AS "weeks_since_pilot_start",
-         AVG(weight_journal.weight ) AS "average_weight",
+         AVG(CASE WHEN weight_journal.units = 'Kgs' THEN 2.2 * weight_journal.weight
+             WHEN weight_journal.units = 'Stones' THEN 14 * weight_journal.weight
+             ELSE weight_journal.weight
+             END ) AS "average_weight",
          LAG(DATEDIFF(week,'01-01-2017',(DATE(weight_journal.wwdate ))),1) OVER(PARTITION BY weight_journal.userid ORDER BY DATEDIFF(week,'01-01-2017',(DATE(weight_journal.wwdate )))) AS "prev_week",
-         LAG(AVG(weight_journal.weight ),1) OVER (PARTITION BY weight_journal.userid ORDER BY DATEDIFF(week,'01-01-2017',(DATE(weight_journal.wwdate )))) as "prev_weight"
+         LAG(AVG(CASE WHEN weight_journal.units = 'Kgs' THEN 2.2 * weight_journal.weight
+                 WHEN weight_journal.units = 'Stones' THEN 14 * weight_journal.weight
+                 ELSE weight_journal.weight
+                 END ),1) OVER (PARTITION BY weight_journal.userid ORDER BY DATEDIFF(week,'01-01-2017',(DATE(weight_journal.wwdate )))) as "prev_weight"
          FROM analytics.weight_journal  AS weight_journal
          INNER JOIN analytics.whisper_user_role_events_snap_20170321  AS whisper_user_role_events_snap_20170321 ON weight_journal.userid = whisper_user_role_events_snap_20170321.userid
          WHERE ((DATEDIFF(week,'01-01-2017',(DATE(weight_journal.wwdate )))  <= 12)) AND
@@ -89,10 +95,10 @@ view: weight_loss_log {
     type: average
     sql: ${weekly_weight_loss} ;;
     value_format_name: decimal_2
-    filters: {
-      field: abs_val_weight_loss
-      value: "<20"
-    }
+#     filters: {
+#       field: abs_val_weight_loss
+#       value: "<20"
+#     }
     drill_fields: [userid,weekly_average_weight,previous_week_average_weight,weekly_weight_loss]
   }
 

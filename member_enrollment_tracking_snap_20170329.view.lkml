@@ -23,7 +23,7 @@ view: member_enrollment_tracking_snap_20170329 {
 
   dimension: program_type {
     type: string
-    sql: ${TABLE}.program_type;;
+    sql: case when ${TABLE}.program_type = '' then 'other' else ${TABLE}.program_type end ;;
   }
 
   dimension: affiliate_id {

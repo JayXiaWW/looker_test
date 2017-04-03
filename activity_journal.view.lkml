@@ -194,7 +194,7 @@ view: activity_journal {
     WHEN ${source} LIKE '%Manual%' THEN 'Manual'
     ELSE 'Other'
     END;;
-    drill_fields: [activity_journal.source,activity_journal.itemtype]
+    drill_fields: [activity_journal.source,activity_journal.itemname]
   }
 
   dimension: steps {
@@ -237,6 +237,8 @@ view: activity_journal {
   }
 
   dimension: weeks_since_pilot_start {
+    label: "Number of Weeks Since Start of Pilot"
+    description: "The Whisper Program Started on 1/1/2017"
     type: number
     sql: DATEDIFF(week,'01-01-2017',${wwdate_date}) ;;
     drill_fields: [wwdate_date]

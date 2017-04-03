@@ -1,31 +1,31 @@
 view: market {
   derived_table: {
 
-    sql: select 1 as site_id, "United States of America" as site_name
+    sql: select 1 as site_id, 'United States of America' as site_name
     union
-    select 2, "United Kingdom"
+    select 2, 'United Kingdom'
      union
-    select 3, "Australia"
+    select 3, 'Australia'
      union
-    select 8, "Germany"
+    select 8, 'Germany'
      union
-    select 9, "France"
+    select 9, 'France'
      union
-    select 13, "Netherlands"
+    select 13, 'Netherlands'
      union
-    select 16, "Sweden"
+    select 16, 'Sweden'
      union
-    select 17, "Canada"
+    select 17, 'Canada'
      union
-    select 21, "Belgium French"
+    select 21, 'Belgium French'
      union
-    select 22, "Spain"
+    select 22, 'Spain'
      union
-    select 27, "French Canada"
+    select 27, 'French Canada'
      union
-    select 31, "Belgium Flemsih"
+    select 31, 'Belgium Flemsih'
      union
-    select 88, "China"
+    select 88, 'China'
     ;;
   }
 
