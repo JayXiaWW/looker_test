@@ -1,7 +1,4 @@
 view: group_sizes {
-
-
-
   derived_table: {
     sql: SELECT rolename,count(distinct userid) as cohort_size
     FROM analytics.whisper_user_role_events_snap_20170321

@@ -123,7 +123,28 @@ view: weight_journal {
     ELSE ${weight}
     END;;
     group_label: "Weight"
+  }
 
+  dimension: lbs_to_goal {
+    type: number
+    sql:${user_profile.goal_weight_lbs} - ${weight_lbs} ;;
+  }
+
+
+  measure: total_weight  {
+    type:  sum
+    sql: ${weight_lbs} ;;
+  }
+
+  measure: total_goal_weight {
+    type: sum
+    sql: ${user_profile.goal_weight_lbs} ;;
+  }
+
+  measure: percent_to_goal  {
+    type:  number
+    sql:  1.0* ${total_weight} / ${total_goal_weight} ;;
+    value_format_name: percent_2
   }
 
   dimension: weightjournalkey {

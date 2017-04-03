@@ -51,6 +51,7 @@ explore: food_journal {
 explore: weight_journal {
   label: "Whisper Effect on Weigh-In"
   sql_always_where: ${wwdate_date} > '01-01-2017' ;;
+
   join: whisper_user_role_events_snap_20170321 {
     view_label: "Whisper Users"
     sql_on: ${weight_journal.userid} = ${whisper_user_role_events_snap_20170321.userid} ;;
@@ -68,6 +69,10 @@ explore: weight_journal {
       AND ${weight_journal.weeks_since_pilot_start} = ${weight_loss_log.weeks_since_pilot_start};;
     type: inner
     relationship: one_to_one
+  }
+  join: user_profile {
+    sql_on: ${weight_journal.userid} = ${user_profile.userid}  ;;
+    relationship: many_to_one
   }
   always_filter: {
     filters: {
