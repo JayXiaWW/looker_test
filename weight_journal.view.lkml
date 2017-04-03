@@ -111,10 +111,12 @@ view: weight_journal {
     type: number
     sql: ${TABLE}.weight ;;
     group_label: "Weight"
+    hidden: yes
   }
 
   dimension: weight_lbs {
     label: "Weight in Lbs"
+    description: "This is the weight converted to Lbs"
     type: number
     sql: CASE WHEN ${units} = 'Kgs' THEN 2.2 * ${weight}
     WHEN ${units} = 'Stones' THEN 14 * ${weight}
