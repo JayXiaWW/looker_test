@@ -7,9 +7,11 @@ include: "*.dashboard.lookml"  # include all dashboards in this project
 explore: member_enrollment_tracking {
   label: "Subscription Analytics"
   view_label: "Subscriptions"
+  persist_for: "12 hours"
 }
 
 explore: subscriptions {
+  persist_for: "12 hours"
   extension: required
   from: member_enrollment_tracking
   view_name: member_enrollment_tracking
@@ -45,6 +47,7 @@ explore: subscriptions {
 }
 
 explore: subscriptions_and_activity {
+  persist_for: "12 hours"
   extends: [subscriptions]
   fields: [ALL_FIELDS*, -activity_journal.percent_of_cohort, -activity_journal.weeks_since_pilot_start, -activity_journal.weeks_since_enrollment]
 
@@ -70,7 +73,8 @@ explore: subscriptions_and_food {
 }
 
 explore: subscriptions_and_weight {
-  hidden: yes
+  # hidden: yes
+  persist_for: "12 hours"
   extends: [subscriptions]
   fields: [ALL_FIELDS*, -weight_journal.percent_of_cohort, -weight_journal.weeks_since_pilot_start, -weight_journal.weeks_since_enrollment]
 
