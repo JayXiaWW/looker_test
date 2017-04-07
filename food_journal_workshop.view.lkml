@@ -40,25 +40,25 @@ view: food_journal_workshop {
   measure: total_smartpoints {
     type: sum
     sql: ${smartpoints} ;;
-    group_label: "Points"
+    group_label: "SmartPoints"
   }
 
   measure: average_smartpoints {
     type: average
     sql: ${smartpoints} ;;
-    group_label: "Points"
+    group_label: "SmartPoints"
   }
 
   measure: min_smartpoints {
     type: min
     sql: ${smartpoints} ;;
-    group_label: "Points"
+    group_label: "SmartPoints"
   }
 
   measure: max_smartpoints {
     type: max
     sql: ${smartpoints} ;;
-    group_label: "Points"
+    group_label: "SmartPoints"
   }
   dimension: itemid {
     type: string
