@@ -280,6 +280,7 @@ view: member_enrollment_tracking {
     type: count_distinct
     sql: ${TABLE}.uuid ;;
     group_label: "Counts"
+    drill_fields: [user_count]
   }
 
 
