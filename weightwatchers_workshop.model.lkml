@@ -5,6 +5,7 @@ include: "*.dashboard.lookml"  # include all dashboards in this project
 
 explore: weight_journal_tp {
   label: "Weight Analytics"
+  hidden: yes
   join :  member_enrollment_tracking {
     sql_on: ${weight_journal_tp.userid} = ${member_enrollment_tracking.uuid} ;;
   }
@@ -14,7 +15,7 @@ explore: weight_journal_tp {
 }
 
 explore: member_enrollment_tracking {
-
+hidden: yes
 label: "Enrollment Analytics"
 join: market {
   sql_on: ${member_enrollment_tracking.site_id} = ${market.site_id} ;;
@@ -22,6 +23,7 @@ join: market {
 }
 
 explore: activity_journal {
+  hidden: yes
   fields: [ALL_FIELDS*, -activity_journal.percent_of_cohort]
   join: member_enrollment_tracking {
     sql_on: ${activity_journal.userid} = ${member_enrollment_tracking.uuid}
@@ -48,6 +50,7 @@ explore: activity_journal {
 #   }
 # }
 explore: food_journal_workshop {
+hidden: yes
 label: "Food Analytics"
 sql_always_where: ${wwdate_date} >= '01-01-2017';;
 
