@@ -128,23 +128,36 @@ view: weight_journal {
   dimension: lbs_to_goal {
     type: number
     sql:${user_profile.goal_weight_lbs} - ${weight_lbs} ;;
+    group_label: "Weight"
+    description: "The number of pounds away from user's stated goal weight"
   }
 
 
   measure: total_weight  {
     type:  sum
     sql: ${weight_lbs} ;;
+    group_label: "Weight"
   }
 
   measure: total_goal_weight {
     type: sum
     sql: ${user_profile.goal_weight_lbs} ;;
+    group_label: "Goal Weight"
   }
 
   measure: percent_to_goal  {
     type:  number
     sql:  1.0* ${total_weight} / ${total_goal_weight} ;;
     value_format_name: percent_2
+    group_label: "Goal Weight"
+  }
+
+  measure: average_lbs_to_goal {
+    description: "Average of gap between current and goal weight"
+    type: average
+    sql: ${lbs_to_goal} ;;
+    value_format_name: decimal_2
+    group_label: "Goal Weight"
   }
 
   dimension: weightjournalkey {
@@ -176,6 +189,10 @@ view: weight_journal {
     sql: ${TABLE}.wwdate ;;
   }
 
+  dimension: weeks_since_enrollment {
+    type: number
+    sql: DATEDIFF(week,${member_enrollment_tracking.enrolled_date},${wwdate_date}) ;;
+  }
   measure: count {
     type: count
     drill_fields: []
@@ -188,6 +205,12 @@ view: weight_journal {
     sql: ${userid} ;;
     group_label: "Counts"
   }
+
+ measure: percent_of_active_users {
+   type: number
+   value_format_name: percent_2
+   sql: 1.0 * ${user_count}/NULLIF(${member_enrollment_tracking.user_count},0)  ;;
+ }
 
   measure: percent_of_cohort {
     type: number

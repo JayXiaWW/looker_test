@@ -47,27 +47,7 @@ dimension_group: wwdate {
   }
 
 
-measure: start_weight_date {
-  type : date
-  sql: min(${wwdate_date});;
-}
 
-measure: end_weight_date {
-  type: date
-  sql: max(${wwdate_date}) ;;
-}
-
-measure: weight_lost {
-  type:  number
-  sql: ${weight_lbs} ;;
-}
-
-measure: NoOfWeighIns {
-  label: "Number Of Weigh-Ins"
-  type:  count
-  sql: ${userid} ;;
-
-}
 
 
   # # You can specify the table name if it's different from the view name:

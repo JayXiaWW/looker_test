@@ -43,7 +43,6 @@ dimension: site_name {
 
 measure: count_market {
   type: count
-  sql: ${TABLE}.site_id ;;
 }
 
   # # You can specify the table name if it's different from the view name:

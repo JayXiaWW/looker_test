@@ -42,6 +42,11 @@ view: food_journal {
     hidden: yes
   }
 
+  dimension: weeks_since_enrollment {
+    type: number
+    sql: DATEDIFF(week,${member_enrollment_tracking.enrolled_date},${wwdate_date}) ;;
+  }
+
   dimension: itemid {
     type: string
     sql: ${TABLE}.itemid ;;
@@ -52,6 +57,25 @@ view: food_journal {
     type: string
     sql: ${TABLE}.itemtype ;;
     group_label: "Item"
+  }
+
+  dimension: meal {
+    type: string
+    sql: ${userid} || ${wwdate_date} || ${timeclassifier} ;;
+    hidden: yes
+  }
+
+  measure: total_meal_count {
+    type: count_distinct
+    sql: ${meal} ;;
+    group_label: "Meals"
+  }
+
+  measure: meals_per_user {
+    type: number
+    sql: 1.0 * ${total_meal_count}/NULLIF(${user_count},0) ;;
+    value_format_name: decimal_2
+    group_label: "Meals"
   }
 
   dimension: journalid {
@@ -107,7 +131,7 @@ view: food_journal {
   dimension: smartpoints {
     type: number
     sql: ${TABLE}.smartpoints ;;
-    group_label: "Points"
+    group_label: "Smartpoints"
   }
 
   dimension: smartpoints_tier {
@@ -115,7 +139,7 @@ view: food_journal {
     sql: ${smartpoints} ;;
     tiers: [2,4,6,8,10,12]
     style: integer
-    group_label: "Points"
+    group_label: "Smartpoints"
   }
 
   dimension: smartpointsperserving {
@@ -223,13 +247,13 @@ view: food_journal {
   measure: total_smartpoints {
     type: sum
     sql: ${smartpoints} ;;
-    group_label: "Points"
+    group_label: "Smartpoints"
   }
 
   measure: average_smartpoints {
     type: average
     sql: ${smartpoints} ;;
-    group_label: "Points"
+    group_label: "Smartpoints"
   }
 
   measure: total_portions {
@@ -250,6 +274,13 @@ view: food_journal {
     drill_fields: []
     group_label: "Counts"
   }
+
+  measure: percent_of_active_users {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0 * ${user_count}/NULLIF(${member_enrollment_tracking.user_count},0)  ;;
+  }
+
 
 
 }

@@ -67,9 +67,9 @@ view: food_journal_workshop {
   }
 
   measure: meal_items_count {
-  type:  count
-  sql:  ${itemid} ;;
-  group_label: "Item"
+    type:  count_distinct
+    sql:  ${itemid} ;;
+    group_label: "Item"
   }
 
 

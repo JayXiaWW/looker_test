@@ -1,6 +1,7 @@
 view: activity_journal {
   sql_table_name: analytics.activity_journal ;;
 
+
   dimension: activityjournalkey {
     type: number
     sql: ${TABLE}.activityjournalkey ;;
@@ -12,6 +13,11 @@ view: activity_journal {
     type: number
     sql: ${TABLE}.calories ;;
     group_label: "Activity Characteristics"
+  }
+
+  dimension: weeks_since_enrollment {
+    type: number
+    sql: DATEDIFF(week,${member_enrollment_tracking.enrolled_date},${wwdate_date}) ;;
   }
 
   measure: total_calories {
@@ -195,6 +201,7 @@ view: activity_journal {
     ELSE 'Other'
     END;;
     drill_fields: [activity_journal.source,activity_journal.itemname]
+    group_label: "Activity Type"
   }
 
   dimension: steps {
@@ -281,6 +288,13 @@ view: activity_journal {
     value_format_name: decimal_2
   }
 
+  measure: percent_of_enrollment_week_cohort {
+    type: number
+    sql: 1.0 * ${user_count}/NULLIF(${cohort_sizes.max_cohort_size},0) ;;
+    value_format_name: percent_2
+    group_label: "Enrollment Information"
+  }
+
   measure: percent_of_cohort {
     type: number
     sql: 1.0 * ${user_count}/NULLIF(${group_sizes.cohort_size},0) ;;
@@ -292,4 +306,11 @@ view: activity_journal {
     sql: ${userid} ;;
     group_label: "Counts"
   }
+
+  measure: percent_of_active_users {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0 * ${user_count}/NULLIF(${member_enrollment_tracking.user_count},0)  ;;
+  }
+
 }

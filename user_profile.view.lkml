@@ -198,6 +198,7 @@ view: user_profile {
   dimension: userid {
     type: string
     sql: ${TABLE}.userid ;;
+    primary_key: yes
   }
 
   dimension: weighinday {
@@ -221,6 +222,7 @@ view: user_profile {
   }
 
   measure: count {
+    label: "User Count"
     type: count
     drill_fields: []
   }
