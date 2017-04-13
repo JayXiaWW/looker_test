@@ -8,6 +8,7 @@ explore: member_enrollment_tracking {
   label: "Subscription Analytics"
   view_label: "Subscriptions"
   persist_for: "12 hours"
+  fields: [ALL_FIELDS*]
 }
 
 explore: subscriptions {
@@ -60,7 +61,7 @@ explore: subscriptions_and_activity {
 }
 
 explore: subscriptions_and_food {
-  hidden: yes
+  #hidden: yes
   extends: [subscriptions]
   fields: [ALL_FIELDS*, -food_journal.percent_of_cohort, -food_journal.weeks_since_pilot_start, -food_journal.weeks_since_enrollment]
 

@@ -76,6 +76,29 @@ view: dates {
     view_label: "Subscriptions"
   }
 
+  measure: net_new_members {
+    description: "Net new members"
+    type:  number
+    sql: ${new_subscribers}-${canceled_subscribers} ;;
+    view_label: "Subscriptions"
+  }
+
+  measure:  current_members {
+    type:  count_distinct
+    filters: {
+      field: is_cancel_month
+      value: "no"
+    }
+    view_label: "Subscriptions"
+    sql: ${member_enrollment_tracking.uuid} ;;
+  }
+
+  measure: net_total_members {
+    description: "Net Total members"
+    type: number
+    sql:  ${current_members}+${net_new_members} ;;
+    view_label: "Subscriptions"
+  }
 
 }
 #
