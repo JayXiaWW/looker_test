@@ -7,9 +7,12 @@ include: "*.dashboard.lookml"  # include all dashboards in this project
 explore: member_enrollment_tracking {
   label: "Subscription Analytics"
   view_label: "Subscriptions"
+  persist_for: "12 hours"
+  fields: [ALL_FIELDS*]
 }
 
 explore: subscriptions {
+  persist_for: "12 hours"
   extension: required
   from: member_enrollment_tracking
   view_name: member_enrollment_tracking
@@ -45,6 +48,7 @@ explore: subscriptions {
 }
 
 explore: subscriptions_and_activity {
+  persist_for: "12 hours"
   extends: [subscriptions]
   fields: [ALL_FIELDS*, -activity_journal.percent_of_cohort, -activity_journal.weeks_since_pilot_start, -activity_journal.weeks_since_enrollment]
 
@@ -57,6 +61,7 @@ explore: subscriptions_and_activity {
 }
 
 explore: subscriptions_and_food {
+  #hidden: yes
   extends: [subscriptions]
   fields: [ALL_FIELDS*, -food_journal.percent_of_cohort, -food_journal.weeks_since_pilot_start, -food_journal.weeks_since_enrollment]
 
@@ -69,6 +74,8 @@ explore: subscriptions_and_food {
 }
 
 explore: subscriptions_and_weight {
+  # hidden: yes
+  persist_for: "12 hours"
   extends: [subscriptions]
   fields: [ALL_FIELDS*, -weight_journal.percent_of_cohort, -weight_journal.weeks_since_pilot_start, -weight_journal.weeks_since_enrollment]
 
@@ -89,6 +96,7 @@ explore: subscriptions_and_weight {
 # ___________________________________________________________________________________________________
 
 explore: activity_journal {
+  hidden: yes
   fields: [ALL_FIELDS*, -activity_journal.percent_of_enrollment_week_cohort]
   label: "Whisper Effect on Activity"
   sql_always_where: ${wwdate_date} > '01-01-2017' ;;
@@ -119,6 +127,7 @@ explore: activity_journal {
 }
 
 explore: food_journal {
+  hidden: yes
   label: "Whisper Effect on Food Entry"
   sql_always_where: ${wwdate_date} > '01-01-2017' ;;
 
@@ -147,7 +156,7 @@ explore: food_journal {
 }
 
 explore: weight_journal {
-
+  hidden: yes
   label: "Whisper Effect on Weigh-In"
   sql_always_where: ${wwdate_date} > '01-01-2017' ;;
 
@@ -187,6 +196,7 @@ explore: weight_journal {
 }
 
 explore: whisper_user_role_events_snap_20170321 {
+  hidden: yes
   label: "Whisper User Profiles"
   join: user_profile {
     type: inner

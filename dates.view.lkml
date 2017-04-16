@@ -28,6 +28,78 @@ view: dates {
     type: number
     sql: DATEDIFF(month, ${member_enrollment_tracking.enrolled_raw},${event_raw}) ;;
   }
+  dimension: is_enrolled_month {
+    type: yesno
+    sql: ${member_enrollment_tracking.enrolled_month} = ${event_month} ;;
+    view_label: "Subscriptions"
+  }
+
+  dimension: is_cancel_month {
+    type: yesno
+    sql: ${member_enrollment_tracking.cancel_month} = ${event_month} ;;
+  }
+
+  measure: new_subscribers{
+    type: count_distinct
+    filters: {
+      field: is_enrolled_month
+      value: "yes"
+    }
+    view_label: "Subscriptions"
+    sql: ${member_enrollment_tracking.uuid} ;;
+  }
+  measure: canceled_subscribers {
+    type: count_distinct
+    filters: {
+      field: is_cancel_month
+      value: "yes"
+    }
+    view_label: "Subscriptions"
+    sql: ${member_enrollment_tracking.uuid} ;;
+  }
+  measure: existing_subscribers {
+    type: count_distinct
+    filters: {
+      field: is_enrolled_month
+      value: "no"
+    }
+    filters: {
+      field: is_cancel_month
+      value: "no"
+    }
+    view_label: "Subscriptions"
+    sql: ${member_enrollment_tracking.uuid} ;;
+  }
+  measure: canceled_subscribers_net {
+    type: number
+    sql: -1 * ${canceled_subscribers} ;;
+    view_label: "Subscriptions"
+  }
+
+  measure: net_new_members {
+    description: "Net new members"
+    type:  number
+    sql: ${new_subscribers}-${canceled_subscribers} ;;
+    view_label: "Subscriptions"
+  }
+
+  measure:  current_members {
+    type:  count_distinct
+    filters: {
+      field: is_cancel_month
+      value: "no"
+    }
+    view_label: "Subscriptions"
+    sql: ${member_enrollment_tracking.uuid} ;;
+  }
+
+  measure: net_total_members {
+    description: "Net Total members"
+    type: number
+    sql:  ${current_members}+${net_new_members} ;;
+    view_label: "Subscriptions"
+  }
+
 }
 #
 #   dimension: lifetime_orders {
