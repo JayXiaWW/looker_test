@@ -9,6 +9,14 @@ explore: member_enrollment_tracking {
   view_label: "Subscriptions"
   persist_for: "12 hours"
   fields: [ALL_FIELDS*]
+
+  join: dates {
+    type: inner
+    relationship: many_to_many
+    sql_on: ${member_enrollment_tracking.enrolled_date} <= ${dates.event_date}
+      AND ${member_enrollment_tracking.enrollment_ends_date} > ${dates.event_date};;
+  }
+
 }
 
 explore: subscriptions {
@@ -70,6 +78,12 @@ explore: subscriptions_and_food {
           AND ${member_enrollment_tracking.uuid} = ${food_journal.userid}
           AND {% condition dates.event_date %} ${food_journal.wwdate_date} {% endcondition %} ;;
     relationship: one_to_many
+  }
+
+  join: weekly_food_activity {
+    sql_on: ${dates.event_week} = ${weekly_food_activity.food_log_week}
+    AND ${food_journal.userid} = ${weekly_food_activity.userid};;
+    relationship: one_to_one
   }
 }
 
@@ -211,6 +225,8 @@ explore: whisper_user_role_events_snap_20170321 {
   }
 }
 
+
+explore: weekly_food_activity {}
 
 # explore: dates {
 #   join: member_enrollment_tracking {

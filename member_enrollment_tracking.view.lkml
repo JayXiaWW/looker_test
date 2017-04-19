@@ -28,6 +28,12 @@ view: member_enrollment_tracking {
     type: string
     sql: case when ${TABLE}.program_type = '' then 'other' else ${TABLE}.program_type end ;;
     group_label: "Program"
+    link: {
+      label: "Food Dashboard"
+      url: "/dashboards/10?Program%20Type={{ value | encode_uri }}"
+      icon_url: "http://www.looker.com/favicon.ico"
+
+  }
   }
 
   dimension: affiliate_id {

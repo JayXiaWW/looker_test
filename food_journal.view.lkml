@@ -78,6 +78,15 @@ view: food_journal {
     group_label: "Meals"
   }
 
+  measure: days_tracked {
+    type:  count_distinct
+    sql: ${wwdate_date} ;;
+    group_label: "Meals"
+    drill_fields: [wwdate_date,total_meal_count]
+  }
+
+
+
   dimension: journalid {
     type: string
     sql: ${TABLE}.journalid ;;
@@ -279,6 +288,12 @@ view: food_journal {
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${user_count}/NULLIF(${member_enrollment_tracking.user_count},0)  ;;
+    drill_fields: [wwdate_week,user_count,member_enrollment_racking.user_count, percent_of_active_users]
+    link: {
+      label: "Food Dashboard"
+      url: "/dashboards/10"
+      icon_url: "http://www.looker.com/favicon.ico"
+    }
   }
 
 

@@ -99,9 +99,9 @@ view: dates {
     sql:  ${current_members}+${net_new_members} ;;
     view_label: "Subscriptions"
   }
-
 }
-#
+
+
 #   dimension: lifetime_orders {
 #     description: "The total number of orders for each user"
 #     type: number
@@ -115,7 +115,7 @@ view: dates {
 #     sql: ${TABLE}.most_recent_purchase_at ;;
 #   }
 #
-#   measure: total_lifetime_orders {
+#  measure: total_lifetime_orders {
 #     description: "Use this for counting lifetime orders across many users"
 #     type: sum
 #     sql: ${lifetime_orders} ;;
