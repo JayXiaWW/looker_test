@@ -93,6 +93,10 @@ explore: subscriptions_and_weight {
   extends: [subscriptions]
   fields: [ALL_FIELDS*, -weight_journal.percent_of_cohort, -weight_journal.weeks_since_pilot_start, -weight_journal.weeks_since_enrollment]
 
+  join: member_facts {
+    sql_on: ${member_enrollment_tracking.uuid} = ${member_facts.userid} ;;
+    relationship: one_to_one
+  }
   join: weight_journal {
     sql_on: ${dates.event_date} = ${weight_journal.wwdate_date}
           AND ${member_enrollment_tracking.uuid} = ${weight_journal.userid}

@@ -132,6 +132,37 @@ view: weight_journal {
     description: "The number of pounds away from user's stated goal weight"
   }
 
+  dimension: to_date_weight_loss {
+    type: number
+    sql: ${member_facts.initial_weight_lbs} - ${weight_lbs} ;;
+    group_label: "Weight"
+  }
+
+  dimension: desired_weight_loss{
+    type: number
+    sql: ${member_facts.initial_weight_lbs} - ${user_profile.goal_weight_lbs} ;;
+    group_label: "Weight"
+  }
+
+  measure: total_to_date_weight_loss {
+    type: sum
+    sql: ${to_date_weight_loss} ;;
+    group_label: "Weight"
+  }
+
+  measure: total_desired_weight_loss {
+    type: sum
+    sql: ${desired_weight_loss} ;;
+    group_label: "Weight"
+  }
+
+  measure: weight_loss_progress_to_target {
+    type: number
+    sql: 1.0 * ${total_to_date_weight_loss}/NULLIF(${total_desired_weight_loss},0) ;;
+    value_format_name: percent_2
+    group_label: "Weight"
+  }
+
 
   measure: total_weight  {
     type:  sum
