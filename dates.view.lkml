@@ -81,6 +81,7 @@ view: dates {
     type:  number
     sql: ${new_subscribers}-${canceled_subscribers} ;;
     view_label: "Subscriptions"
+    drill_fields: [member_enrollment_tracking.enrollment_rank_buckets, net_new_members]
   }
 
   measure:  current_members {

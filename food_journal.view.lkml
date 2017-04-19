@@ -265,6 +265,13 @@ view: food_journal {
     group_label: "Smartpoints"
   }
 
+  measure: average_smartpoints_per_meal {
+    type: number
+    sql: 1.0 * ${total_smartpoints}/NULLIF(${total_meal_count},0) ;;
+    group_label: "Smartpoints"
+    value_format_name: decimal_2
+  }
+
   measure: total_portions {
     type: sum
     sql: ${portionsize} ;;

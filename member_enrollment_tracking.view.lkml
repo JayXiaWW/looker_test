@@ -161,6 +161,15 @@ view: member_enrollment_tracking {
     group_label: "Enrollment Characteristics"
   }
 
+  dimension: enrollment_rank_buckets {
+    description: "Groups of Number of times Members came back"
+    type: tier
+    sql: ${enrollment_rank} ;;
+    tiers: [1, 2, 3, 5, 10]
+    style: integer
+    group_label: "Enrollment Characteristics"
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
@@ -289,6 +298,10 @@ view: member_enrollment_tracking {
     drill_fields: [user_count]
   }
 
-
+  dimension:  repeat_member {
+    type:  yesno
+    sql:  ${enrollment_rank} > 1 ;;
+    group_label: "Enrollment Characteristics"
+  }
 
 }
