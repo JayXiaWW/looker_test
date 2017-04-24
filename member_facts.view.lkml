@@ -26,7 +26,7 @@ dimension: userid {
 dimension: initial_weight_lbs {
   type: number
   sql: ${TABLE}.initial_weight_lbs ;;
-  view_label: "Subscription"
+  view_label: "Subscriptions"
 }
 
 }

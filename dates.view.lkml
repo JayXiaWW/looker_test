@@ -45,7 +45,9 @@ view: dates {
       field: is_enrolled_month
       value: "yes"
     }
+    description: "Number of Subscribers Enrolled this Month"
     view_label: "Subscriptions"
+    group_label: "Monthly Statistics"
     sql: ${member_enrollment_tracking.uuid} ;;
   }
   measure: canceled_subscribers {
@@ -54,7 +56,9 @@ view: dates {
       field: is_cancel_month
       value: "yes"
     }
+    description: "Number of Subscribers Cancelled this Month"
     view_label: "Subscriptions"
+    group_label: "Monthly Statistics"
     sql: ${member_enrollment_tracking.uuid} ;;
   }
   measure: existing_subscribers {
@@ -67,20 +71,26 @@ view: dates {
       field: is_cancel_month
       value: "no"
     }
+    description: "Number of Active Subscribers who didn't enroll or cancel"
     view_label: "Subscriptions"
+    group_label: "Monthly Statistics"
     sql: ${member_enrollment_tracking.uuid} ;;
   }
   measure: canceled_subscribers_net {
     type: number
     sql: -1 * ${canceled_subscribers} ;;
+    description: "-1 * Number of Cancelled Subscribers"
     view_label: "Subscriptions"
+    group_label: "Monthly Statistics"
   }
 
   measure: net_new_members {
     description: "Net new members"
     type:  number
     sql: ${new_subscribers}-${canceled_subscribers} ;;
+    description: "Enrollments - Cancellations"
     view_label: "Subscriptions"
+    group_label: "Monthly Statics"
     drill_fields: [member_enrollment_tracking.enrollment_rank_buckets, net_new_members]
   }
 
@@ -90,7 +100,9 @@ view: dates {
       field: is_cancel_month
       value: "no"
     }
+    description: "Active Members - Cancellations"
     view_label: "Subscriptions"
+    group_label: "Monthly Statistics"
     sql: ${member_enrollment_tracking.uuid} ;;
   }
 
@@ -98,6 +110,7 @@ view: dates {
     description: "Net Total members"
     type: number
     sql:  ${current_members}+${net_new_members} ;;
+    group_label: "Monthly Statistics"
     view_label: "Subscriptions"
   }
 }
