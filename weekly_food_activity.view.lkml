@@ -13,7 +13,7 @@ view: weekly_food_activity {
        GROUP BY 1,2 ;;
     sortkeys: ["week"]
     distribution: "userid"
-    persist_for: "168 hours"
+    sql_trigger_value: SELECT CURRENT_DATE ;;
   }
 
   dimension: userid {
