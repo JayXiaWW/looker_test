@@ -12,7 +12,7 @@ view: weekly_food_activity {
        WHERE wwdate > '2017-01-01'
        GROUP BY 1,2 ;;
     sortkeys: ["week"]
-    distribution: "week"
+    distribution: "userid"
     persist_for: "168 hours"
   }
 

@@ -1,5 +1,11 @@
 view: member_enrollment_tracking {
-  sql_table_name: analytics.member_enrollment_tracking_snap_20170329 ;;
+  derived_table: {
+    sql: SELECT * from analytics.member_enrollment_tracking_snap_20170329 ;;
+    sql_trigger_value: SELECT CURRENT_DATE ;;
+    sortkeys: ["enrolled_on"]
+    distribution: "uuid"
+  }
+  #sql_table_name: analytics.member_enrollment_tracking_snap_20170329 ;;
 
   dimension: uuid {
     type: string
