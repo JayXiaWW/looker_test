@@ -11,7 +11,7 @@ view: cohort_sizes {
       ;;
     sortkeys: ["enrolled_week"]
     distribution_style: all
-    sql_trigger_value: SELECT COUNT(*) ;;
+    sql_trigger_value: SELECT CURRENT_DATE ;;
   }
 
   dimension: enrolled_week {

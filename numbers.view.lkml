@@ -20,7 +20,7 @@ view: numbers {
       ;;
    sortkeys: ["index"]
    distribution_style: all
-   sql_trigger_value: SELECT COUNT(*) ;;
+   sql_trigger_value: SELECT CURRENT_DATE ;;
   }
 
   dimension: index {

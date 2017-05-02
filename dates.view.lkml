@@ -3,7 +3,7 @@ view: dates {
     sql: SELECT
     DATEADD(day, index, '2001-01-01') as series_date
     FROM ${numbers.SQL_TABLE_NAME} as numbers;;
-    sql_trigger_value: SELECT COUNT(*) ;;
+    sql_trigger_value: SELECT CURRENT_DATE ;;
     sortkeys: ["series_date"]
     distribution_style: all
   }
