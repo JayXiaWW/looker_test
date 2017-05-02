@@ -20,7 +20,7 @@ view: weight_loss_log {
          GROUP BY 1,2
       ;;
     sortkeys: ["weeks_since_pilot_start"]
-    distribution: "average_weight"
+    distribution: "userid"
     persist_for: "168 hours"
   }
 
