@@ -19,7 +19,7 @@ view: numbers {
         (SELECT 0 as n UNION SELECT 1) p12
       ;;
    sortkeys: ["index"]
-   distribution: "index"
+   distribution_style: all
    sql_trigger_value: SELECT COUNT(*) ;;
   }
 

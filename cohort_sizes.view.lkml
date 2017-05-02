@@ -10,7 +10,7 @@ view: cohort_sizes {
       GROUP BY 1
       ;;
     sortkeys: ["enrolled_week"]
-    distribution: "cohort_size"
+    distribution_style: all
     sql_trigger_value: SELECT COUNT(*) ;;
   }
 
