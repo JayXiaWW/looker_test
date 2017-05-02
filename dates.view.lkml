@@ -5,7 +5,7 @@ view: dates {
     FROM ${numbers.SQL_TABLE_NAME} as numbers;;
     sql_trigger_value: SELECT COUNT(*) ;;
     sortkeys: ["series_date"]
-    distribution: "series_date"
+    distribution_style: all
   }
 #
   # Define your dimensions and measures here, like this:

@@ -177,6 +177,7 @@ explore: weight_journal {
   hidden: yes
   label: "Whisper Effect on Weigh-In"
   sql_always_where: ${wwdate_date} > '01-01-2017' ;;
+  fields: [ALL_FIELDS*, -weight_journal.desired_weight_loss, -weight_journal.to_date_weight_loss]
 
   join: whisper_user_role_events_snap_20170321 {
     view_label: "Whisper Users"
